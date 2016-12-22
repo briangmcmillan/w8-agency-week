@@ -2,12 +2,13 @@ import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { Accordion, Panel } from 'react-bootstrap'
+import CartItem from './CartItem'
 
 class Checkout extends React.Component {
     constructor(props) {
         super(props)
         this.fetchCartItems = this.fetchCartItems.bind(this)
-        // this.deleteCartItems = this.deleteCartItems.bind(this)
+        this.clearToken = this.clearToken.bind(this)
         this.state = {
             cartItems: {
                 line_items: []
@@ -19,32 +20,21 @@ class Checkout extends React.Component {
     }
 
     fetchCartItems(){
+        console.log(sessionStorage.getItem('token'))
         fetch('/api/carts/id?token=' + sessionStorage.getItem('token'))
-        // fetch('/api/carts/id?token=' + 3)
         .then(response => response.json())
         // .then(response => console.log(response))
         .then(response => this.setState({cartItems: response}))
     }
 
+    clearToken() {
+        sessionStorage.clear()
+    }
+
+
     render() {
         var cart = this.state.cartItems.line_items.map((data, i) => {
-            var price = '$' + (data.item.price)/100 + '.00'
-            return <div>
-                <div className=" row cart_item_container" key={i}>
-                    <div className="col-sm-4">
-                        <img src={data.item.image} alt='a nice photo here' className='img-responsive' />
-                    </div>
-                    <div className="col-sm-4 cart_item_text">
-                        <strong>{data.item.product}</strong><br/>
-                        <div className="headerText"><strong>{price}</strong></div><br/>
-                        {data.item.description}
-                    </div>
-                    <div className="col-sm-4">
-                        <button className="btn btn-default" onClick="this.deleteCartItems">Delete</button>
-                    </div>
-                </div>
-                <hr/>
-            </div>
+            return <CartItem data={data} key={i} />
         })
         var open = 3
         return <div>
@@ -207,7 +197,7 @@ class Checkout extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="col-sm-12">
-                                <button className="cart_btn btn-lg btn-default pull-right">Confirm Purchase</button>
+                                <button className="cart_btn btn-lg btn-default pull-right" onClick={this.clearToken}>Confirm Purchase</button>
                                 </div>
                             </div>
                         </div>
