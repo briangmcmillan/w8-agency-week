@@ -16,7 +16,7 @@ class LineItemsController < ApplicationController
       )
     end
     if @line_item.item.available > @line_item.quantity
-      render json: @line_item.errors.full_message, status: :unprocessable_entity
+      render json: @line_item
     else
     if @line_item.save
       @line_item.item.available -= @line_item.quantity

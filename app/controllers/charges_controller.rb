@@ -1,6 +1,6 @@
 class ChargesController < ApplicationController
   def new
-end
+  end
 
   def create
     # Amount in cents
@@ -10,7 +10,6 @@ end
       email: params[:stripeEmail],
       source: params[:stripeToken]
     )
-
     charge = Stripe::Charge.create(
       customer: customer.id,
       amount: @amount,
