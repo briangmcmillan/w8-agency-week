@@ -22,8 +22,8 @@ class Checkout extends React.Component {
         fetch('/api/carts/id?token=' + sessionStorage.getItem('token'))
         // fetch('/api/carts/id?token=' + 3)
         .then(response => response.json())
-        // .then(response => console.log(response))
-        .then(response => this.setState({cartItems: response}))
+        .then(response => console.log(response))
+        // .then(response => this.setState({cartItems: response}))
     }
 
     render() {

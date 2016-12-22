@@ -25,10 +25,11 @@ class Item extends React.Component {
             method: 'POST',
         })
         .then(response => response.json())
-        .then((response) => {
-            this.saveToken(response)
-            this.switchAddToCartLabel(response)
-        })
+        // .then((response) => {
+        //     this.saveToken(response)
+        //     this.switchAddToCartLabel(response)
+        // })
+        .then(response => console.log(response))
     }
     //   // .then(response => console.log(response))
     //   .then(this.saveToken)
