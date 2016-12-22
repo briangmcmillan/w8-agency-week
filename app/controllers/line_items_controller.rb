@@ -18,7 +18,7 @@ class LineItemsController < ApplicationController
         @line_item.save
       end
         render json: @line_item
-    end
+  end
 
   def update
     @line_item = LineItem.find(params[:id])
