@@ -38,8 +38,8 @@ class Item extends React.Component {
     // }
 
     saveToken(response){
-    //   console.log(response)
-      sessionStorage.setItem('token', response.token)
+      console.log(response.cart_id)
+      sessionStorage.setItem('token', response.cart_id)
     }
 
     switchAddToCartLabel() {
