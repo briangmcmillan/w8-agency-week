@@ -16,20 +16,25 @@ class Item extends React.Component {
     addToCart() {
         var token = sessionStorage.getItem('token')
         var formData = new FormData()
-        formData.append('item_id', this.props.data.id)
-        formData.append('quantity', 1)
-        formData.append('token', token)
+            formData.append('item_id', this.props.data.id)
+            formData.append('quantity', 1)
+            formData.append('token', token)
 
-      fetch('/addtocart', {
-        body: formData,
-        method: 'POST',
-      })
-      .then(response => response.json())
-      // .then(response => console.log(response))
-      .then(this.saveToken)
-      .then(this.switchAddToCartLabel)
-        this.switchAddToCartLabel()
+        fetch('/addtocart', {
+            body: formData,
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then((response) => {
+            this.saveToken(response)
+            this.switchAddToCartLabel(response)
+        })
     }
+    //   // .then(response => console.log(response))
+    //   .then(this.saveToken)
+    //   .then(this.switchAddToCartLabel)
+    //     this.switchAddToCartLabel()
+    // }
 
     saveToken(response){
     //   console.log(response)
